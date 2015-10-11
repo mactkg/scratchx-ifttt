@@ -7,7 +7,7 @@ module.exports = {
   },
 
   _getStatus: function() {
-    if(typeof this._ctx === "undefined")
+    if(this._ctx == null)
       return {status: 1, msg: 'token is not set or wrong'};
     else
       return {status: 2, msg: 'Ready'};

@@ -48985,12 +48985,20 @@ module.exports={
 },{}],342:[function(require,module,exports){
 module.exports=// definition of blocks
 {
-  "title": "scratchx-template",
-  "descriptor": {
-    blocks: [
-      [' ', 'set token as %s', 'setToken', 'TOKEN'],
-      [' ', 'fire %s event to maker channel with %s %s %s', 'scratch', 'scratch', 'val1', 'val2', 'val3']
-    ]
+  title: "scratchx-ifttt",
+  descriptor: {
+    en: {
+      blocks: [
+        [' ', 'set token as %s', 'setToken', 'TOKEN'],
+        [' ', 'fire %s event to maker channel with %s %s %s', 'post', 'scratch', 'val1', 'val2', 'val3']
+      ]
+    },
+    ja: {
+      blocks: [
+        [' ', 'トークンを%s にする', 'setToken', 'TOKEN'],
+        [' ', '%s というイベントをMakerチャンネルに送る %s %s %s', 'post', 'scratch', '値1', '値2', '値3']
+      ]
+    }
   }
 }
 
@@ -49004,7 +49012,7 @@ module.exports = {
   },
 
   _getStatus: function() {
-    if(typeof this._ctx === "undefined")
+    if(this._ctx == null)
       return {status: 1, msg: 'token is not set or wrong'};
     else
       return {status: 2, msg: 'Ready'};
@@ -49036,7 +49044,17 @@ var ext = require('./ext.js');
 var data = require('./data.json');
 
 (function(e) {
-  debugger;
+  // Check for GET param 'lang'
+  // codes from https://github.com/khanning/scratch-arduino-extension/blob/da1ab317a215a8c1c5cda1b9db756b9edc14ba68/arduino_extension.js#L533-L541
+  var paramString = window.location.search.replace(/^\?|\/$/g, '');
+  var vars = paramString.split("&");
+  var lang = 'en';
+  for (var i=0; i<vars.length; i++) {
+    var pair = vars[i].split('=');
+    if (pair.length > 1 && pair[0]=='lang')
+      lang = pair[1];
+  }
+
   // merge objects
   for (var attrname in ext) {
     if (ext.hasOwnProperty(attrname)) {
@@ -49045,7 +49063,7 @@ var data = require('./data.json');
   }
 
   // register exention
-  ScratchExtensions.register(data.title, data.descriptor, e);
+  ScratchExtensions.register(data.title, data.descriptor[lang], e);
 })({});
 
 },{"./data.json":342,"./ext.js":343}]},{},[344]);
