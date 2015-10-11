@@ -10,8 +10,6 @@ var uglifyify = require('uglifyify');
 
 gulp.task('js', function() {
   browserify({entries: ['src/index.js']})
-    //.transform(browserifyData)
-    //.transform(uglifyify)
     .bundle()
     .pipe(source('scripts.js'))
     .pipe(gulp.dest('./'));

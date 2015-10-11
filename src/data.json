@@ -3,7 +3,8 @@
   "title": "scratchx-template",
   "descriptor": {
     blocks: [
-      [' ', 'my first block: %n', 'myFirstBlock', 'val1']
+      [' ', 'set token as %s', 'setToken', 'TOKEN'],
+      [' ', 'fire %s event to maker channel with %s %s %s', 'scratch', 'scratch', 'val1', 'val2', 'val3']
     ]
   }
 }

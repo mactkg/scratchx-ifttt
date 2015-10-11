@@ -1,13 +1,35 @@
-// write down codes here...
+var ifttt = require('node-ifttt-maker');
+
 module.exports = {
+  _ctx: null,
+
   _shutdown: function() {
   },
 
   _getStatus: function() {
-    return {status: 2, msg: 'Ready'};
+    if(typeof this._ctx === "undefined")
+      return {status: 1, msg: 'token is not set or wrong'};
+    else
+      return {status: 2, msg: 'Ready'};
   },
 
-  myFirstBlock: function(val) {
-    console.log("called myFirstBlock! val:", val);
+  setToken: function(token) {
+    this._ctx = new ifttt(token);
+  },
+
+  post: function(event, val1, val2, val3) {
+    this._ctx.request({
+      event: event,
+      method: 'GET',
+      params: {
+        'value1': val1,
+        'value2': val2,
+        'value3': val3
+      }
+    }, function(err) {
+      if(err) {
+        console.log(err);
+      }
+    });
   }
 };

@@ -19,5 +19,8 @@
     "ngrok": "^0.2.2",
     "uglifyify": "^3.0.1",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "node-ifttt-maker": "^0.1.1"
   }
 }
